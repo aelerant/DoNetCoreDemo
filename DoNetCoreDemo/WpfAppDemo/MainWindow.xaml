@@ -1,0 +1,180 @@
+﻿<Window x:Class="WpfAppDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="285" Width="325">
+    <!--维护CommandBindings-->
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open"
+          Executed="OpenCmdExecuted"
+          CanExecute="OpenCmdCanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+          Executed="SaveCmdExecuted"
+          CanExecute="SaveCmdCanExecute"/>
+
+    </Window.CommandBindings>-->
+
+    <!--Canvas:提供一个经典的内容布置模式,保留设计时确切的位置-->
+    <!--<Canvas>
+        <Button x:Name="Button" Canvas.Left="212" Canvas.Top="203" Width="80" Content="OK"/>
+        <Label x:Name="lab1" Canvas.Left="17" Canvas.Top="14" Width="328" Height="27" FontSize="15"
+               Content="Enter Car Information"/>
+        <Label x:Name="lab2" Canvas.Left="17" Canvas.Top="60" Content="Make"/>
+        <TextBox x:Name="text2" Canvas.Left="94" Canvas.Top="60" Width="193"  Height="25"/>
+        <Label x:Name="lab3" Canvas.Left="17" Canvas.Top="109" Content="Color"/>
+        <TextBox x:Name="text3" Canvas.Left="94" Canvas.Top="107" Width="155"  Height="25"/>
+        <Label x:Name="lab4" Canvas.Left="17" Canvas.Top="155" Content="Pet Name"/>
+        <TextBox x:Name="text4" Canvas.Left="94" Canvas.Top="153" Width="193"  Height="25"/>
+    </Canvas>-->
+    <!--DockPanel:将内容锁定在某一侧(top,bottom,left,right)
+        通常与其他面板组合使用-->
+    <!--<DockPanel>
+        <Label x:Name="lab1" DockPanel.Dock="Top" FontSize="15" Content="Enter Car Information"/>
+        <Label x:Name="lab2" DockPanel.Dock="Left" Content="Make"/>
+        <Label x:Name="lab3" DockPanel.Dock="Right" Content="Color"/>
+        <Label x:Name="lab4" DockPanel.Dock="Bottom" Content="Pet Name"/>
+        <Button x:Name="Button" Content="OK"/>
+    </DockPanel>-->
+    <!--<DockPanel>
+        菜单
+        <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Background="White" BorderBrush="Black">
+            手动加菜单
+            <MenuItem Header="_File">
+                <MenuItem Command="ApplicationCommands.Open"/>
+                <MenuItem Command="ApplicationCommands.Save"/>
+                <Separator/>
+                <MenuItem Header="_Exit" MouseEnter="MouseEnterEixtArea"
+                          MouseLeave="MouseLeaveEixArea" Click="FileExit_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Edit">
+                <MenuItem Command="ApplicationCommands.Copy"/>
+                <MenuItem Command="ApplicationCommands.Cut"/>
+                <MenuItem Command="ApplicationCommands.Paste"/>
+            </MenuItem>
+
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Spelling Hints" MouseEnter="MouseEnterToolsHintsArea"
+                          MouseLeave="MouseLeaveToolsHintsArea" Click="ToolsSpellingHints_Click"/>
+            </MenuItem>
+
+            工具条:可嵌入任何类型,Cursor定义光标
+            <ToolBar DockPanel.Dock="Top">
+                <Button Content="Exit" MouseEnter="MouseEnterEixtArea"
+                          MouseLeave="MouseLeaveEixArea" Click="FileExit_Click"/>
+                <Separator/>
+                <Button Content="SpellingHints" MouseEnter="MouseEnterToolsHintsArea"
+                          MouseLeave="MouseLeaveToolsHintsArea" Click="ToolsSpellingHints_Click"
+                            Cursor="Help"/>
+            </ToolBar>
+        </Menu>
+
+        状态条
+        <StatusBar DockPanel.Dock="Bottom" Background="Beige">
+            <StatusBarItem>
+                <TextBlock Name="statusBarText" Text="Ready"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid DockPanel.Dock="Left" Background="AliceBlue">
+            定义行和列
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="54*"/>
+                <ColumnDefinition Width="108*"/>
+                <ColumnDefinition Width="163*"/>
+            </Grid.ColumnDefinitions>
+
+            <GridSplitter Grid.Column="1" Width="4" Background="Gray" HorizontalAlignment="Left" Margin="104,0,0,0"/>
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
+                <Label Name="labSpellingHints" FontSize="14" Margin="10,10,0,0">
+                    Spelling Hints
+                </Label>
+
+                <Expander Name="expanderSpelling" Header="Try these!" Margin="10,10,10,10">
+                    将以编程方式填充
+                    <Label Name="labExpanderSpelling" FontSize="14" />
+                </Expander>
+            </StackPanel>
+            输入文字的区域
+            <TextBox  Name="textData" FontSize="14" BorderBrush="Blue"
+                      Grid.Column="1" IsEnabled="True"
+                      AcceptsReturn="True"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2" Margin="108,0,0,0">
+            </TextBox>
+        </Grid>
+    </DockPanel>-->
+    <DockPanel>
+        <Rectangle x:Name="myRect" Height="30" Width="30"
+                   Fill="Green" MouseDown="myRect_MouseDown"/>
+    </DockPanel>
+    <!--StackPanel:默认垂直,将内容按水平(Horizontal)或垂直(Vertical)进行堆放,面板中可以使用其他面板,动态拉伸,如DockPanel包含StackPanel;Orientation属性调整-->
+    <!--<StackPanel Orientation="Vertical" Background="GhostWhite">
+        <Label x:Name="lab1" FontSize="15" Content="Enter Car Information"/>
+        <Label x:Name="lab2" Content="Make"/>
+        <TextBox x:Name="text2"/>
+        <Label x:Name="lab3" Content="Color"/>
+        <TextBox x:Name="text3" />
+        <Label x:Name="lab4" Content="Pet Name"/>
+        <TextBox x:Name="text4" />
+        <Button x:Name="Button"  Width="80" Content="OK"/>
+    </StackPanel>-->
+    <!--WrapPanel:默认从左向右放置内容,超出面板换行;Orientation属性调整
+       Orientation属性值改为Vertical则从上到下 
+       ItemWidth,ItemHeight控制未设尺寸子项的尺寸-->
+    <!--<WrapPanel Orientation="Vertical" ItemWidth="200" ItemHeight="30">
+        <Label x:Name="lab1" Width="328" Height="27" FontSize="15" Content="Enter Car Information"/>
+        <Label x:Name="lab2" Content="Make"/>
+        <TextBox x:Name="text2" Width="193" Height="25"/>
+        <Label x:Name="lab3" Content="Color"/>
+        <TextBox x:Name="text3" Width="193" Height="25"/>
+        <Label x:Name="lab4" Content="Pet Name"/>
+        <TextBox x:Name="text4" Width="193" Height="25"/>
+        <Button x:Name="Button"  Width="80" Content="OK"/>
+    </WrapPanel>-->
+    <!--Grid:将内容安排在一系列单元格中,像表格一样维护-->
+    <!--<Grid>
+        ScrollViewer:自动滚动
+        <ScrollViewer>
+            <StackPanel>
+                <Label Content="lab1" Background="Green" Height="50"/>
+                <Label Content="lab2" Background="Red" Height="50"/>
+                <Label Content="lab3" Background="Pink" Height="50"/>
+                <Label Content="lab4" Background="Yellow" Height="50"/>
+                <Label Content="lab5" Background="Blue" Height="50"/>
+                <Label Content="lab6" Background="MintCream" Height="50"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>-->
+    <!--<Grid ShowGridLines="True" Background="AliceBlue">
+        定义行和列
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        向单元格中添加元素
+        <Label x:Name="lab1" Grid.Column="0" Grid.Row="0" FontSize="12" Content="Enter Car Information"/>
+        <Button x:Name="Button" Grid.Column="0" Grid.Row="0" Width="155"  Height="30" Content="OK"/>
+        <Label x:Name="lab2" Grid.Column="1" Grid.Row="0" Content="Make"/>
+        <TextBox x:Name="text2" Grid.Column="1" Grid.Row="0" Width="155"  Height="25"/>
+        <Label x:Name="lab3" Grid.Column="0" Grid.Row="1" Content="Color"/>
+        <TextBox x:Name="text3" Grid.Column="0" Grid.Row="1" Width="155"  Height="25"/>
+
+        设计单元格,样式在数据之前,否则会覆盖
+        <Rectangle Fill="LightGreen"  Grid.Column="1" Grid.Row="1"/>
+        <Label x:Name="lab4" Grid.Column="1" Grid.Row="1" Content="Pet Name"/>
+        <TextBox x:Name="text4" Grid.Column="1" Grid.Row="1" Width="155"  Height="25"/>
+
+        拆分器(滑动列),使用拆分器的列Width属性设为Auto
+        <GridSplitter Grid.Column="0" Width="5" />
+    </Grid>-->
+
+</Window>
