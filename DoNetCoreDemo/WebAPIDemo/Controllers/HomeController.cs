@@ -1,7 +1,9 @@
-﻿using DoNetCoreDemo.Service;
+﻿using DoNetCoreDemo.Model;
+using DoNetCoreDemo.Service;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
+using Microsoft.Extensions.Options;
+using NLog;
 
 namespace WebAPIDemo.Controllers
 {
@@ -9,11 +11,15 @@ namespace WebAPIDemo.Controllers
     [Route("[controller]")]
     public class HomeController : ControllerBase
     {
-        private readonly EmailService _emailService;
+        private readonly NLog.Logger _logger = LogManager.GetLogger("API") ?? LogManager.GetCurrentClassLogger();
 
-        public HomeController(EmailService emailService)
+        private readonly EmailService _emailService;
+        public readonly AppSettings _AppSettings;
+
+        public HomeController(EmailService emailService, IOptions<AppSettings> appSettings)
         {
             _emailService = emailService;
+            _AppSettings = appSettings.Value;
         }
 
         [HttpGet("SendTestEmail")]
@@ -73,6 +79,19 @@ namespace WebAPIDemo.Controllers
             {
                 return Content($"{ex.Message}");
             }
+        }
+
+        [HttpGet("LogTest")]
+        public string LogTest(string str)
+        {
+            LogServices.Error($"LogTest:{str};key:{_AppSettings.DeepSeekApiKey}");
+            LogServices.API("LogTest", str, $"LogTest:{str};key:{_AppSettings.DeepSeekApiKey}");
+
+            //AppSettings? item = null;
+            //if (item.DeepSeekApiKey == "")
+            //    return $"LogTest2:{str}";
+
+            return $"LogTest:{str}";
         }
     }
 }

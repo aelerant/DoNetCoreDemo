@@ -1,0 +1,9 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection123": "Server=36.134.6.202;database=fm2022;uid=root;pwd=1234567890();SslMode=None",
+    "MsSQL-DefaultConnection": "Password=1234567890();Persist Security Info=True;User ID=hwx;Initial Catalog=iwms-core;Data Source=114.55.105.88,38438\\SQL2014;MultipleActiveResultSets=true",
+    "Oracle-DefaultConnection": "DATA SOURCE=192.168.1.54:1521/wcs;USER ID=hwx ;PASSWORD=Admin123;Persist Security Info=True;",
+
+    "DefaultConnection": "Password=123456;Persist Security Info=True;User ID=sa;Initial Catalog=TestDB;Data Source=127.0.0.1,8391;MultipleActiveResultSets=true"
+  }
+}

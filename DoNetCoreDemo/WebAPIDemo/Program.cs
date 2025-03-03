@@ -1,5 +1,6 @@
-using DoNetCoreDemo.Service;
+using WebAPIDemo;
 
+#if false
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -28,3 +29,33 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+#endif
+
+#if true
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        //var host = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory)
+        //    .AddJsonFile("host.json")
+        //    .Build();
+
+        //var db = new ConfigurationBuilder().SetBasePath(Path.Join(Environment.CurrentDirectory, "config"))
+        //    .AddJsonFile("db.json")
+        //    .Build();
+
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                //webBuilder.UseConfiguration(db);
+                //webBuilder.UseConfiguration(host);
+                webBuilder.UseStartup<Startup>();
+            });
+    }
+}
+#endif

@@ -1,8 +1,6 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
+﻿using MimeKit;
 using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
-using System;
 using System.Net.Mime;
 using System.Net;
 
