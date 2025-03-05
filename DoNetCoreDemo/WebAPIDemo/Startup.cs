@@ -1,7 +1,9 @@
 ﻿using DoNetCoreDemo.Model;
 using DoNetCoreDemo.Service;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using WebAPIDemo.Data;
 
 namespace WebAPIDemo
 {
@@ -17,6 +19,16 @@ namespace WebAPIDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            ////通过依赖关系注入注册的上下文
+            ////指定生命周期（默认为Scoped）
+            //1.不需要Mapping
+            services.AddDbContext<ApplicationDbContext>(options =>
+                  //Microsoft.EntityFrameworkCore.SqlServer
+                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")),
+                  contextLifetime: ServiceLifetime.Scoped,
+                  optionsLifetime: ServiceLifetime.Singleton
+                  );
 
             services.AddControllers()
                  .AddNewtonsoftJson(options =>//NuGet:Microsoft.AspNetCore.Mvc.NewtonsoftJson
@@ -68,6 +80,7 @@ namespace WebAPIDemo
             //https://localhost:7132/swagger/index.html
             app.UseSwaggerUI();
 
+            //开始页
             app.UseDefaultFiles();
             app.UseDefaultFiles(new DefaultFilesOptions
             {

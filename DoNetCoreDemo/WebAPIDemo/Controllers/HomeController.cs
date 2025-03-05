@@ -1,9 +1,12 @@
 ﻿using DoNetCoreDemo.Model;
+using DoNetCoreDemo.Model.Entity;
 using DoNetCoreDemo.Service;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using NLog;
+using WebAPIDemo.Data;
 
 namespace WebAPIDemo.Controllers
 {
@@ -12,14 +15,15 @@ namespace WebAPIDemo.Controllers
     public class HomeController : ControllerBase
     {
         private readonly NLog.Logger _logger = LogManager.GetLogger("API") ?? LogManager.GetCurrentClassLogger();
-
+        private readonly ApplicationDbContext _dbContext;
         private readonly EmailService _emailService;
         public readonly AppSettings _AppSettings;
 
-        public HomeController(EmailService emailService, IOptions<AppSettings> appSettings)
+        public HomeController(EmailService emailService, IOptions<AppSettings> appSettings, ApplicationDbContext dbContext)
         {
             _emailService = emailService;
             _AppSettings = appSettings.Value;
+            _dbContext = dbContext;
         }
 
         [HttpGet("SendTestEmail")]
@@ -92,6 +96,45 @@ namespace WebAPIDemo.Controllers
             //    return $"LogTest2:{str}";
 
             return $"LogTest:{str}";
+        }
+
+        [HttpGet("GetUsers")]
+        public IActionResult GetUsers()
+        {
+            var users = _dbContext.User.ToList();
+            _dbContext.User.RemoveRange(users);
+
+            _dbContext.User.Add(new User
+            {
+                Name = "root",
+                Email = "123@qq.com",
+                CreateUser = "01"
+            });
+            _dbContext.SaveChanges();
+
+            var users2 = _dbContext.User.ToList();
+            return Content(JsonConvert.SerializeObject(users2));
+        }
+
+        [HttpGet("AddOrder")]
+        public IActionResult AddOrder()
+        {
+            var user = _dbContext.User.FirstOrDefault(b => b.Name == "root");
+
+            _dbContext.Order.Add(new Order
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = user.Id,
+                Price = 10,
+                Title = "牙刷",
+                Address = "xxxx",
+                User = user,
+                CreateUser = "01"
+            });
+            _dbContext.SaveChanges();
+
+            var Orders = _dbContext.Order.ToList();
+            return Content(JsonConvert.SerializeObject(Orders));
         }
     }
 }
