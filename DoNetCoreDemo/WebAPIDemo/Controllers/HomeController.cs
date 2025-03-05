@@ -18,12 +18,14 @@ namespace WebAPIDemo.Controllers
         private readonly ApplicationDbContext _dbContext;
         private readonly EmailService _emailService;
         public readonly AppSettings _AppSettings;
+        public readonly IAPIManager _IAPIManager;
 
-        public HomeController(EmailService emailService, IOptions<AppSettings> appSettings, ApplicationDbContext dbContext)
+        public HomeController(EmailService emailService, IOptions<AppSettings> appSettings, ApplicationDbContext dbContext, IAPIManager iAPIManager)
         {
             _emailService = emailService;
             _AppSettings = appSettings.Value;
             _dbContext = dbContext;
+            _IAPIManager = iAPIManager;
         }
 
         [HttpGet("SendTestEmail")]
@@ -135,6 +137,12 @@ namespace WebAPIDemo.Controllers
 
             var Orders = _dbContext.Order.ToList();
             return Content(JsonConvert.SerializeObject(Orders));
+        }
+
+        [HttpGet("APITest")]
+        public string APITest()
+        {
+            return _IAPIManager.GetStr();
         }
     }
 }

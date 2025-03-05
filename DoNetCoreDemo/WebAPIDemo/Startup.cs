@@ -48,6 +48,9 @@ namespace WebAPIDemo
 
             // 注册邮件服务
             services.AddTransient<EmailService>();
+
+            //依赖关系注入:控制反转
+            DoNetCoreDemo.Service.IoC.AddIoC(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
